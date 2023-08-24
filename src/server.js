@@ -6,8 +6,6 @@ const http = require("http");
 const socketIO = require("socket.io");
 const {config} = require("dotenv");
 
-const { config } = require("dotenv");
-
 config();
 
 // classe server
