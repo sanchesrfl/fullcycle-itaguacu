@@ -1,6 +1,8 @@
 module.exports = {
     async chatSocket(req, res) {
-        res.sendFile("../../src/routes/v1/index.html");
+        res.json({message: "socket ON"})
+        console.log("chegou no chatSocket...")
+        
         //     const { messagem } = req.body;
         //     const {Server}= require("../server")
         //     const server = new Server();

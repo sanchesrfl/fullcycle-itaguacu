@@ -1,14 +1,42 @@
 // dependencias
 const express = require("express");
-const cors = require("cors");
-
-const http = require("http");
-const socketIO = require("socket.io");
-const {config} = require("dotenv");
+const app = express();
+const http = require('http')
+const cors = require('cors');
+const socketIO = require('socket.io')(http, {
+  cors: {
+      origin: "http://localhost:3000"
+  }
+});
 
 const { config } = require("dotenv");
-
 config();
+
+let users = []
+
+socketIO.on('connection', (socket) => {
+    console.log(`⚡: ${socket.id} usuário conectado.`)  
+    socket.on("message", data => {
+      socketIO.emit("messageResponse", data)
+    })
+
+    socket.on("typing", data => (
+      socket.broadcast.emit("typingResponse", data)
+    ))
+
+    socket.on("newUser", data => {
+      users.push(data) // Aqui temos que colocar a adição no DB
+      socketIO.emit("newUserResponse", users)
+    })
+ 
+    socket.on('disconnect', () => {
+      console.log('🔥: Um Usiário desconectado.');
+      users = users.filter(user => user.socketID !== socket.id) // Aqui temos que 
+      socketIO.emit("newUserResponse", users)
+      socket.disconnect()
+    });
+});
+
 
 // classe server
 class Server {
@@ -18,7 +46,6 @@ class Server {
     this.middlewares(app);
     this.database();
     this.initializeServer(app);
-    this.initializeSocket(app);
   }
   // middlewares
   async middlewares(app) { 
@@ -43,30 +70,13 @@ class Server {
     app.use(appRoutes);
   }
 
-    // Initialize socket.io
-  async initializeSocket(app) {
-    const server = http.Server(app); 
-    const io = socketIO(server); 
-
-    io.on("connection", (socket) => {
-      console.log("Usuário conectado");
-
-      socket.on("message", (msg) => {
-        io.emit("message", msg);
-      });
-
-      socket.on("disconnect", () => {
-        console.log("Usuário desconectado");
-      });
-    });
-  }
-
-
   // start server
   async initializeServer(app) {
-    const PORT = process.env.PORT_NODE || 3000;
+    const PORT = process.env.PORT_NODE || 4000;
     const HOST = process.env.HOST_NODE || "localhost";
-    app.listen(PORT, () => console.log(`Servidor executando http://${HOST}:${PORT}`));
+
+    const server = http.Server(app)
+    server.listen(PORT, () => console.log(`Servidor executando http://${HOST}:${PORT}`));
   }
 
 }

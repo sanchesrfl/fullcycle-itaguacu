@@ -22,13 +22,13 @@ const Mensagens = connection.define("mensagens", {
         type: STRING,
         allowNull: false,
         validate: {
-            notNull: {msg: "O campo medicine é obrigatório."}
+            notNull: {msg: "O campo mensagem é obrigatório."}
         },
         get() {
-            return this.getDataValue('medicine');
+            return this.getDataValue('mensagem');
           },
         set(value) {
-            this.setDataValue('medicine', value.toUpperCase());
+            this.setDataValue('mensagem', value.toUpperCase());
           },
     },
     createdAt: DATE,
