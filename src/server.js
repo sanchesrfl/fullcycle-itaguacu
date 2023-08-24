@@ -26,7 +26,7 @@ class Server {
     app.use(express.json());
   }
 
-  }
+  
   // connect database
   async database() {
     const connection = require("./database/connection");
@@ -44,7 +44,7 @@ class Server {
   }
 
     // Initialize socket.io
-  initializeSocket(app) {
+  async initializeSocket(app) {
     const server = http.Server(app); 
     const io = socketIO(server); 
 
