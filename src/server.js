@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const {config} = require("dotenv");
+const { config } = require("dotenv");
 config();
 
 // classe server
@@ -11,11 +11,25 @@ class Server {
   constructor(app = express()) {
     this.routes(app);
     this.middlewares(app);
-    this.database();
-    this.initializeServer(app);
+    // this.database();
+    
+    // socket.io
+    const http = require('http');
+    const server = http.createServer(app);
+    const { Server } = require("socket.io");
+    const io = new Server(server);
+    io.on('connection', (socket) => {
+      console.log('Usuario conectado');
+      socket.on('chat message', msg => {
+        io.emit('chat message', msg);
+      });
+    });
+
+    //startServer
+    this.initializeServer(server);
   }
   // middlewares
-  async middlewares(app) { 
+  async middlewares(app) {
     app.use(cors());
     app.use(express.json());
     app.use(morgan("dev"))
@@ -34,7 +48,7 @@ class Server {
   async routes(app) {
     const appRoutes = require("./routes");
     app.use(appRoutes);
-  
+
   }
   // start server
   async initializeServer(app) {

@@ -14,7 +14,8 @@
     "pg": "^8.11.1",
     "pg-connection-string": "^2.6.1",
     "sequelize": "^6.32.1",
-    "sequelize-cli": "^6.6.1"
+    "sequelize-cli": "^6.6.1",
+    "socket.io": "^4.7.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
