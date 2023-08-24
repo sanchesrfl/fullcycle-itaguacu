@@ -1,7 +1,8 @@
 const homeRoutes = require("express").Router();
-const { chatSocket } = require("../../controllers/chatsocket");
 
+const { chat } = require("../../controllers/home.js");
 
-homeRoutes.get('/chat', chatSocket);
+homeRoutes.get("/", chat );
+
 
 module.exports = homeRoutes;

@@ -1,9 +1,13 @@
 // dependencias
 const express = require("express");
 const cors = require("cors");
+
 const http = require("http");
 const socketIO = require("socket.io");
 const {config} = require("dotenv");
+
+const { config } = require("dotenv");
+
 config();
 
 // classe server
@@ -20,6 +24,7 @@ class Server {
   async middlewares(app) { 
     app.use(cors());
     app.use(express.json());
+  }
 
   }
   // connect database
@@ -36,10 +41,9 @@ class Server {
   async routes(app) {
     const appRoutes = require("./routes");
     app.use(appRoutes);
-  
   }
 
-  // Initialize socket.io
+    // Initialize socket.io
   initializeSocket(app) {
     const server = http.Server(app); 
     const io = socketIO(server); 
@@ -64,6 +68,8 @@ class Server {
     const HOST = process.env.HOST_NODE || "localhost";
     app.listen(PORT, () => console.log(`Servidor executando http://${HOST}:${PORT}`));
   }
+
 }
+
 module.exports = { Server };
 
