@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useRef, useEffect } from 'react';
-import ChatInput from './components/Chat/ChatInput';
-import MessageList from './components/Chat/MessageList';
+import ChatInput from './components/ChatInput/ChatInput';
+import MessageList from './components/ChatInput/MessageList';
 
 const ChatApp = () => {
   const [messages, setMessages] = useState([]);
@@ -11,9 +11,9 @@ const ChatApp = () => {
     const newMessage = { text, sender };
     setMessages([newMessage, ...messages]);
 
-    if (sender !== 'Adriano') {
+    if (sender !== 'bot') {
       setTimeout(() => {
-        const botMessage = { text: 'Olá! Sou um bot.', sender: 'Adriano' };
+        const botMessage = { text: 'Olá! Sou um bot !!!!!!!!!!', sender: 'Bot' };
         setMessages([botMessage, ...messages]);
       }, 500);
     }
