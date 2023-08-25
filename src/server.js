@@ -1,6 +1,5 @@
 // dependencias
 const express = require("express");
-const app = express();
 const cors = require("cors");
 const path = require("path");
 
@@ -8,8 +7,8 @@ const path = require("path");
 class Server {
   // constructor de classe
   constructor(app = express()) {
-    this.routes(app);
     this.middlewares(app);
+    this.routes(app);
     // this.database();
     this.initializeServer(app);
   }
@@ -50,6 +49,7 @@ class Server {
         io.emit('chat message', msg);
       });
     });
+
 
     http.listen(port, () => {
       console.log(`Socket.IO server running at http://localhost:${port}/`);

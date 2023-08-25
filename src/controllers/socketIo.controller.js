@@ -2,7 +2,7 @@ module.exports = {
 
     async chatSocketPost(req, res) {
 
-        const { mensagem, usuario } = req.headers
+        const { mensagem, usuario } = req.body
 
         const clienteSocket = require("socket.io-client");
 
