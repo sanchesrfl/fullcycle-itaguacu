@@ -1,42 +1,7 @@
 // dependencias
 const express = require("express");
 const app = express();
-const http = require('http')
-const cors = require('cors');
-const socketIO = require('socket.io')(http, {
-  cors: {
-      origin: "http://localhost:3000"
-  }
-});
-
-const { config } = require("dotenv");
-config();
-
-let users = []
-
-socketIO.on('connection', (socket) => {
-    console.log(`⚡: ${socket.id} usuário conectado.`)  
-    socket.on("message", data => {
-      socketIO.emit("messageResponse", data)
-    })
-
-    socket.on("typing", data => (
-      socket.broadcast.emit("typingResponse", data)
-    ))
-
-    socket.on("newUser", data => {
-      users.push(data) // Aqui temos que colocar a adição no DB
-      socketIO.emit("newUserResponse", users)
-    })
- 
-    socket.on('disconnect', () => {
-      console.log('🔥: Um Usiário desconectado.');
-      users = users.filter(user => user.socketID !== socket.id) // Aqui temos que 
-      socketIO.emit("newUserResponse", users)
-      socket.disconnect()
-    });
-});
-
+const cors = require("cors");
 
 // classe server
 class Server {
@@ -44,16 +9,16 @@ class Server {
   constructor(app = express()) {
     this.routes(app);
     this.middlewares(app);
-    this.database();
+    // this.database();
     this.initializeServer(app);
   }
   // middlewares
-  async middlewares(app) { 
+  async middlewares(app) {
     app.use(cors());
     app.use(express.json());
   }
 
-  
+
   // connect database
   async database() {
     const connection = require("./database/connection");
@@ -72,13 +37,26 @@ class Server {
 
   // start server
   async initializeServer(app) {
-    const PORT = process.env.PORT_NODE || 4000;
-    const HOST = process.env.HOST_NODE || "localhost";
 
-    const server = http.Server(app)
-    server.listen(PORT, () => console.log(`Servidor executando http://${HOST}:${PORT}`));
+    const server = require('http').createServer(app);
+    const io = require("socket.io")(server, {
+      path: "/chat"
+    });
+
+    const port = process.env.PORT || 3000;
+    server.listen(port, () => {
+      console.log(`Servidor rodando em http://localhost:${port}`);
+    });
+
+    io.on("connection", (socket) => {
+      console.log("socket conectado: ", socket.id);
+      socket.on("chat message", (msg) => {
+        console.log("Mensagem recevido : ", msg);
+        io.emit("chat message", msg);
+      });
+    }
+    );
   }
-
 }
 
 module.exports = { Server };

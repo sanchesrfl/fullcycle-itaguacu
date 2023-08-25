@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const homeRoutes = require('./v1/home');
+const socketIoRoutes = require('./v1/socketIo');
 
-router.use([homeRoutes])
+router.use([socketIoRoutes])
 
 module.exports = router
