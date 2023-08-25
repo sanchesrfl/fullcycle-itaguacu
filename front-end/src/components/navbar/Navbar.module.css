@@ -1,0 +1,36 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(200, 200, 200);
+    padding: 1em;
+    height: 65px;
+}
+.navbar Link{
+    margin: auto;
+}
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.list{
+    display: flex;
+    list-style: none;
+    align-items: center;
+    margin: 10px;
+}
+.item{
+    margin-right: 1em;
+}
+.item2{
+    margin-left: 45em;
+}
+
+.item a{
+    color: gray;
+    text-decoration: none;
+}
+.item a:hover{
+    color:#04701e;
+}
