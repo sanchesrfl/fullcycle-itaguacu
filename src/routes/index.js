@@ -1,6 +1,13 @@
-const router = require('express').Router();
-const homeRoutes = require('./v1/home');
+const { Router } = require('express')
+const { routesFromUser } = require('./v1/user.routers')
+const { routesFromMessage } = require('./v1/message.router')
+const routes = new Router()
 
-router.use([homeRoutes])
 
-module.exports = router
+routes.use('/api', [
+  routesFromUser(),
+  routesFromMessage()
+])
+
+// Exportação do objeto routes para uso no server.js
+module.exports = routes
