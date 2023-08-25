@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const path = require("path");
 
 // classe server
 class Server {
@@ -16,6 +17,8 @@ class Server {
   async middlewares(app) {
     app.use(cors());
     app.use(express.json());
+    app.use(express.static(path.join(__dirname, 'public')));
+
   }
 
 
@@ -37,25 +40,21 @@ class Server {
 
   // start server
   async initializeServer(app) {
-
-    const server = require('http').createServer(app);
-    const io = require("socket.io")(server, {
-      path: "/chat"
-    });
-
+    const http = require('http').Server(app);
+    const io = require('socket.io')(http);
     const port = process.env.PORT || 3000;
-    server.listen(port, () => {
-      console.log(`Servidor rodando em http://localhost:${port}`);
+
+
+    io.on('connection', (socket) => {
+      socket.on('chat message', msg => {
+        io.emit('chat message', msg);
+      });
     });
 
-    io.on("connection", (socket) => {
-      console.log("socket conectado: ", socket.id);
-      socket.on("chat message", (msg) => {
-        console.log("Mensagem recevido : ", msg);
-        io.emit("chat message", msg);
-      });
-    }
-    );
+    http.listen(port, () => {
+      console.log(`Socket.IO server running at http://localhost:${port}/`);
+    });
+
   }
 }
 

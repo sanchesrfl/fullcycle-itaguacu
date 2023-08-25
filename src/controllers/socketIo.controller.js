@@ -6,10 +6,9 @@ module.exports = {
 
         const clienteSocket = require("socket.io-client");
 
-        const socket = clienteSocket.connect("http://localhost:3000", {
-            path: "/chat"
-        });
-        socket.emit("chat message", { usuario, mensagem });
+        const socket = clienteSocket.connect("http://localhost:3000");
+
+        socket.emit("chat message", `${usuario} : ${mensagem}`);
 
         return res.send({ message: " mensagem novo", mensagem, usuario })
 
