@@ -4,6 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const MessageList = ({ messages }) => {
   return (
     <div className="message-list">
