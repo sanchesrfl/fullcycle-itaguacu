@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ChatInput.styles.css';
 
 // eslint-disable-next-line react/prop-types
 const Chat = ({ onSendMessage }) => {
@@ -13,6 +14,8 @@ const Chat = ({ onSendMessage }) => {
   };
 
   return (
+
+    <div className="chat-container">
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -22,6 +25,7 @@ const Chat = ({ onSendMessage }) => {
       />
       <button type="submit">Enviar</button>
     </form>
+    </div>
   );
 };
 

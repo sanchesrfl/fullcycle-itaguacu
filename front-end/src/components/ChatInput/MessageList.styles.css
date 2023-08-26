@@ -1,0 +1,36 @@
+.message-list {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background-color:  #afadad;
+    border-radius: 5px;
+    padding: 0 20px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column-reverse; /* Inverta a ordem das mensagens */
+    align-items: flex-end; /* Alinhar à direita */
+    justify-content: flex-start; /* Alinhar o conteúdo ao topo */
+    margin-top: auto; /* Empurrar a div para o final */
+  }
+  
+  .messages-container {
+    display: flex;
+    flex-direction: column-reverse; /* Inverta a ordem das mensagens */
+    align-items: flex-end; /* Alinhar à direita */
+  }
+  
+  .message {
+    background-color: #fff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(42, 41, 41);
+    font-size: 18px;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+  }
+  
+  .message.sent-by-me {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end; /* Alinhar à direita */
+  }
+  

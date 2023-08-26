@@ -22,7 +22,9 @@ const ChatApp = () => {
 
   return (
     <div className="chat-app">
-      <MessageList messages={messages} ref={messagesContainerRef} />
+      <div className="message-list-container">
+        <MessageList messages={messages} ref={messagesContainerRef} />
+      </div>
       <ChatInput onSendMessage={handleSendMessage} />
     </div>
   );
