@@ -9,13 +9,49 @@ const Chat = () => {
             <div className="title text-center">
               <h5>NOME DO GRUPO</h5>{" "}
             </div>
+            <div className="date text-center">
+              <p>28 de agosto de 2023</p>
+            </div>
           </div>
         </div>
         <div className="row">
-          <div class="input-group mb-3">
+          <div className="contact-right d-flex justify-content-end mb-4">
+            <div className="contact-right">Você</div>
+          </div>
+
+          <div className="bubble-right d-flex justify-content-end mb-4">
+            <div className="bubble-right-msg">msg exemplo</div>
+          </div>
+
+          <div className="contact-left d-flex justify-content-start mb-4">
+            <div className="contact-left">@aluno1</div>
+          </div>
+          <div className="bubble-left d-flex justify-content-start mb-4">
+            <div className="bubble-left-msg">msg exemplo</div>
+          </div>
+
+          <div className="contact-right d-flex justify-content-end mb-4">
+            <div className="contact-right">Você</div>
+          </div>
+
+          <div className="bubble-right d-flex justify-content-end mb-4">
+            <div className="bubble-right-msg">msg exemplo</div>
+          </div>
+
+          <div className="contact-left d-flex justify-content-start mb-4">
+            <div className="contact-left">@aluno2</div>
+          </div>
+
+          <div className="bubble-left d-flex justify-content-start mb-4">
+            <div className="bubble-left-msg">msg exemplo</div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="type-msg input-group mb-3">
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Digite sua mensagem"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
