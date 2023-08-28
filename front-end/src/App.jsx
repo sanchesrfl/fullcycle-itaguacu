@@ -2,7 +2,7 @@ import Chat from "./components/Chat";
 
 export default function App() {
   return (
-    <div classNameName="App">
+    <div className="App">
       <Chat />
     </div>
   );
